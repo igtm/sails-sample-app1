@@ -1,0 +1,22 @@
+#Container {
+    margin-top: 50px;
+}
+.container {
+    width:65%;
+    text-align: center;
+}
+h1 {
+    margin-top: 80px;
+}
+.form-signin {
+    max-width: 50%;
+    padding:19px 29px 29px;
+    margin:0 auto 20px;
+    margin-top: 20px;
+    background: lightgray;
+    border: 1px solid green;
+    border-radius: 15px;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    border-radius: 15px;
+}

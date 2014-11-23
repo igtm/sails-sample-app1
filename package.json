@@ -31,7 +31,7 @@
   "main": "app.js",
   "repository": {
     "type": "git",
-    "url": "git://github.com/Tomokatsu/activityOverload.git"
+    "url": "git://github.com/igtm/sails-sample-app1"
   },
   "author": "Tomokatsu",
   "license": ""

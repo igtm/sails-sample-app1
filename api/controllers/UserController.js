@@ -47,8 +47,14 @@ module.exports = {
             req.session.authenticated = true;
             req.session.User = user;
 
+            user.online = true;
+            user.save(function(err, user){
+                if(err) return next(err);
+
+                res.redirect('/user/show/'+user.id);
+            });
+
             //res.json(user);
-            res.redirect('/user/show/'+user.id);
 
             //req.session.flash = {};
         });
