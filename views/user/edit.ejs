@@ -1,0 +1,14 @@
+<form action="/user/update/<%= user.id %>" method="POST" class="form-signin">
+    <h2>編集画面</h2>
+    <input value="<%= user.name %>" name="name" type="text" class="form-control"/>
+    <input value="<%= user.title %>" name="title" type="text" class="form-control"/>
+    <input value="<%= user.email %>" name="email" type="text" class="form-control"/>
+<!-- 【実験中実装】だれでも自分のadmin権限を変更できる。 -->
+    <% if(true || session.authenticated && session.User.admin) {%><!-- 自分がadminかどうか -->
+    <!-- 対象がadminかどうか -->
+            <input type="hidden" name="_modifyAdmin" value="true"/>
+            <label class="checkbox"><input type="checkbox" name="adminCheck" <% if(user.admin) {%>checked<% } %>>Admin</label>
+    <% } %>
+    <input value="編集" type="submit" class="btn btn-lg btn-primary btn-block"/>
+    <input value="<%= _csrf %>" name="_csrf" type="hidden"/>
+</form>
