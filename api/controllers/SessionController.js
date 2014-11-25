@@ -57,6 +57,12 @@ module.exports = {
                 user.save(function(err, user){
                     if(err) return next(err);
 
+                    // 「ログインしたよ〜」と、他のsocketに知らせる
+                    User.publishUpdate(user.id,{
+                        loggedIn: true,
+                        id: user.id
+                    });
+
                     if(req.session.User.admin){
                         return res.redirect('/user');
                     }
@@ -67,9 +73,17 @@ module.exports = {
         });
     },
     destroy: function(req, res, next){
-        User.update(req.session.User.id, {online: false}, function(err){
+        var id = req.session.User.id;
+
+        User.update(id, {online: false}, function(err){
            if(err) return next(err);
         });
+        // 「ログアウトしたよ〜」と、他のsocketに知らせる
+        User.publishUpdate(id,{
+            loggedIn: false,
+            id: id
+        });
+
 
         req.session.destroy();
         res.redirect('/session/new');
