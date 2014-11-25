@@ -53,7 +53,7 @@ var UserIndexPage = {
     },
     addUser: function(user){
         $('tr:last').after(
-          JST['/templates/newColumn.ejs'](user)// templateだけがうまくいかない！
+          JST['assets/templates/newColumn.ejs'](user)// templateだけがうまくいかない！
         );
     },
 
