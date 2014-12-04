@@ -54,7 +54,7 @@ var UserIndexPage = {
     addUser: function(user){
         var obj = {user: user};
         $('tr:last').after(
-          JST['assets/templates/newColumn.ejs'](obj)// templateだけがうまくいかない！
+          JST['assets/templates/newColumn.ejs'](obj)// jst.js内の_のためにjsフォルダにunderscoreを導入
         );
     },
 

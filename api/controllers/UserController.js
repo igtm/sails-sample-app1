@@ -49,7 +49,6 @@ module.exports = {
             });
             // socket送信！！
             User.publishCreate(user, req.socket);
-
             res.redirect('/user/show/'+user.id);
             //res.json(user);
 
