@@ -52,19 +52,39 @@ module.exports = {
                 // サインイン成功！
                 req.session.authenticated = true;
                 req.session.User = user;
-                console.log('SessionControllerです');
-                console.log(req.session.User.admin);
-                console.log(req.session.User);
 
-                if(req.session.User.admin){
-                    return res.redirect('/user');
-                }
+                user.online = true;
+                user.save(function(err, user){
+                    if(err) return next(err);
 
-                res.redirect('/user/show/'+user.id);
+                    // 「ログインしたよ〜」と、他のsocketに知らせる
+                    User.publishUpdate(user.id,{
+                        loggedIn: true,
+                        id: user.id
+                    });
+
+                    if(req.session.User.admin){
+                        return res.redirect('/user');
+                    }
+
+                    res.redirect('/user/show/'+user.id);
+                });
             })
         });
     },
     destroy: function(req, res, next){
+        var id = req.session.User.id;
+
+        User.update(id, {online: false}, function(err){
+           if(err) return next(err);
+        });
+        // 「ログアウトしたよ〜」と、他のsocketに知らせる
+        User.publishUpdate(id,{
+            loggedIn: false,
+            id: id
+        });
+
+
         req.session.destroy();
         res.redirect('/session/new');
     }
